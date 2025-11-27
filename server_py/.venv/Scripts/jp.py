@@ -1,4 +1,4 @@
-#!C:\Users\justa\Documents\GitHub\CallSenseCX\server_py\.venv\Scripts\python.exe
+#!C:\Users\Pijus\Documents\GitHub\CallSenseCX\server_py\.venv\Scripts\python.exe
 
 import sys
 import json

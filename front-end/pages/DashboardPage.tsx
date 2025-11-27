@@ -37,6 +37,9 @@ export const DashboardPage: React.FC = () => {
     call.transcript.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  // Only show top 3 recent calls on dashboard
+  const recentCalls = filteredCalls.slice(0, 3);
+
   // Stats Logic
   const totalCalls = calls.length;
   const negativeCalls = calls.filter(c => c.ai_data?.sentiment === Sentiment.NEGATIVE || c.ai_data?.sentiment === Sentiment.VERY_NEGATIVE).length;
@@ -116,7 +119,17 @@ export const DashboardPage: React.FC = () => {
       {/* Main List Section */}
       <div className="bg-white rounded-xl shadow-sm border border-slate-200 flex flex-col">
         <div className="p-6 border-b border-slate-200 flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <h2 className="text-lg font-bold text-slate-900">Recent Calls</h2>
+          <div className="flex items-center justify-between w-full">
+            <h2 className="text-lg font-bold text-slate-900">Recent Calls</h2>
+            {filteredCalls.length > 3 && (
+              <button
+                onClick={() => navigate('/calls')}
+                className="text-sm text-blue-600 hover:text-blue-800 font-medium"
+              >
+                View all
+              </button>
+            )}
+          </div>
           
           <div className="flex flex-col sm:flex-row gap-3">
              <div className="relative">
@@ -157,12 +170,12 @@ export const DashboardPage: React.FC = () => {
                 <tr>
                    <td colSpan={6} className="px-6 py-12 text-center text-slate-500">Loading calls...</td>
                 </tr>
-              ) : filteredCalls.length === 0 ? (
+              ) : recentCalls.length === 0 ? (
                 <tr>
-                   <td colSpan={6} className="px-6 py-12 text-center text-slate-500">No calls found.</td>
+                   <td colSpan={6} className="px-6 py-12 text-center text-slate-500">No recent calls.</td>
                 </tr>
               ) : (
-                filteredCalls.map((call) => (
+                recentCalls.map((call) => (
                   <tr key={call.id} className="hover:bg-slate-50 transition-colors cursor-pointer" onClick={() => navigate(`/calls/${call.id}`)}>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="text-sm font-medium text-slate-900">{call.caller_number}</div>

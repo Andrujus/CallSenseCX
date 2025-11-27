@@ -3,6 +3,7 @@ import { HashRouter, Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import { Layout } from './components/Layout';
 import { LoginPage } from './pages/LoginPage';
 import { DashboardPage } from './pages/DashboardPage';
+import { CallsPage } from './pages/CallsPage';
 import { CallDetailPage } from './pages/CallDetailPage';
 import { SettingsPage } from './pages/SettingsPage';
 
@@ -27,7 +28,7 @@ const App: React.FC = () => {
         {/* Protected Routes */}
         <Route element={<ProtectedRoute />}>
           <Route path="/" element={<DashboardPage />} />
-          <Route path="/calls" element={<DashboardPage />} /> {/* Re-use dashboard for calls list for MVP */}
+          <Route path="/calls" element={<CallsPage />} />
           <Route path="/calls/:id" element={<CallDetailPage />} />
           <Route path="/settings" element={<SettingsPage />} />
         </Route>
